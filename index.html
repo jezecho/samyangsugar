@@ -58,7 +58,7 @@
         <div class="form-group"><label>생년월일</label><div class="date-select-group"><select id="qYear"></select><select id="qMonth"></select><select id="qDay"></select></div></div>
         <div class="form-group"><label>지역</label><input type="text" id="qRegion" placeholder="예: 서울시 강남구"></div>
         <div class="form-group"><label>메일주소 <span class="required">*</span></label><div class="flex-group"><input type="text" id="qEmailId" placeholder="example"> @ <select id="qEmailDomain" onchange="toggleDirectInput('q')"><option value="naver.com">naver.com</option><option value="daum.net">daum.net</option><option value="gmail.com">gmail.com</option><option value="direct">직접입력</option></select><input type="text" id="qEmailDirect" placeholder="도메인 입력" style="display:none; margin-top:5px;"></div></div>
-        <div class="form-group"><label>문의내용 <span class="required">*</span></label><textarea id="qMsg" class="large-input" placeholder="문의하실 내용을 상세히 적어주세요."></textarea></div>
+        <div class="form-group"><label>문의내용 <span class="required">*</span></label><textarea id="qMsg" class="large-input" placeholder="상세히 적어주세요."></textarea></div>
         <button class="submit-btn" id="qBtn" onclick="submitData('고객문의')">문의하기</button>
     </div>
 
@@ -92,15 +92,17 @@
     <div id="docPage" class="page">
         <button class="back-btn" onclick="showPage('mainPage')">❮ 뒤로가기</button>
         <h3>기타서류 요청</h3>
+        <div class="form-group"><label>성함 <span class="required">*</span></label><input type="text" id="dName" placeholder="예: 홍길동"></div>
+        <div class="form-group"><label>연락처 <span class="required">*</span></label><input type="tel" id="dTel" placeholder="예: 010-0000-0000"></div>
         <div class="form-group"><label>제품군 <span class="required">*</span></label><select id="dType"><option>설탕</option><option>전분</option><option>밀가루</option><option>유지</option></select></div>
-        <div class="form-group"><label>요청사항 <span class="required">*</span></label><textarea id="dMsg" class="large-input" placeholder="ex) HACCP 인증서 등"></textarea></div>
+        <div class="form-group"><label>요청사항 <span class="required">*</span></label><textarea id="dMsg" class="large-input" placeholder="ex) HACCP 인증서, 원산지 증명서 등"></textarea></div>
         <div class="form-group"><label>받으실 메일 <span class="required">*</span></label><input type="email" id="dEmail" placeholder="예: example@naver.com"></div>
         <button class="submit-btn" id="dBtn" onclick="submitData('기타서류요청')">요청하기</button>
     </div>
 
     <div id="callPage" class="page">
         <button class="back-btn" onclick="showPage('mainPage')">❮ 뒤로가기</button>
-        <div class="call-icon"><svg viewBox="0 0 24 24"><path d="M6.62,10.79C8.06,13.62 10.38,15.94 13.21,17.38L15.41,15.18C15.69,14.9 16.08,14.82 16.43,14.93C17.55,15.3 18.75,15.5 20,15.5C20.55,15.5 21,15.95 21,16.5V20C21,20.55 20.55,21 20,21C10.61,21 3,13.39 3,4C3,3.45 3.45,3 4,3H7.5C8.05,3 8.5,3.45 8.5,4C8.5,5.25 8.7,6.45 9.07,7.57C9.18,7.92 9.1,8.31 8.82,8.59L6.62,10.79Z"/></svg></div>
+        <div class="call-icon"><svg viewBox="0 0 24 24"><path d="M6.62,10.79C8.06,13.62 10.38,15.94 13.21,17.38L15.41,15.18C15.69,14.9 16.08,14.82 16.43,14.93C17.55,15.3 18.75,15.5 20,15.5C20.55,15.5 21,16.5V20C21,20.55 20.55,21 20,21C10.61,21 3,13.39 3,4C3,3.45 3.45,3 4,3H7.5C8.05,3 8.5,3.45 8.5,4C8.5,5.25 8.7,6.45 9.07,7.57C9.18,7.92 9.1,8.31 8.82,8.59L6.62,10.79Z"/></svg></div>
         <div style="text-align: center;"><a href="tel:0800233399" class="call-number">080-023-3399</a><p style="margin-top:25px; color: #555; font-size: 15px; line-height: 1.7;">상담사 연결 (09:00~17:30)<br><span style="font-weight: 700;">상담사 연결이 지연될 경우,<br>잠시 후 다시 연결을 시도해주십시오.</span></p></div>
     </div>
 </div>
@@ -165,16 +167,17 @@
                 payload.prodName = document.getElementById('rProdList').value;
                 payload.lot = `${document.getElementById('rYear').value}-${document.getElementById('rMonth').value}-${document.getElementById('rDay').value}`;
                 payload.userEmail = document.getElementById('rEmail').value;
-                // [교정 포인트] 상세내용 문구 수정
                 payload.message = "성적서 발송요청";
                 if(!payload.name || !payload.contact || !payload.prodName || !payload.lot || !payload.userEmail) { alert("필수 항목(*)을 모두 입력해주세요."); return; }
             } else if(type === '기타서류요청') {
+                // 기타서류 수집 로직 업데이트
                 btn = document.getElementById('dBtn');
-                payload.name = "서류요청"; payload.productType = document.getElementById('dType').value;
+                payload.name = document.getElementById('dName').value;
+                payload.contact = document.getElementById('dTel').value;
+                payload.productType = document.getElementById('dType').value;
                 payload.userEmail = document.getElementById('dEmail').value;
                 payload.message = document.getElementById('dMsg').value;
-                payload.contact = "-";
-                if(!payload.userEmail || !payload.message) { alert("필수 항목(*)을 모두 입력해주세요."); return; }
+                if(!payload.name || !payload.contact || !payload.userEmail || !payload.message) { alert("필수 항목(*)을 모두 입력해주세요."); return; }
             }
 
             const fileInput = document.getElementById('cFile');
@@ -189,7 +192,7 @@
             } else { sendToServer(payload, btn); }
 
         } catch (error) {
-            alert("입력 과정에서 오류가 발생했습니다: " + error.message);
+            alert("입력 과정에서 오류가 발생했습니다.");
         }
     }
 
