@@ -32,7 +32,7 @@
         .call-icon { text-align: center; margin: 30px 0 20px; }
         .call-icon svg { width: 64px; height: 64px; fill: var(--main-blue); }
         .call-number { font-size: 30px; font-weight: 800; color: var(--main-blue); text-decoration: none; border: 3px solid var(--main-blue); padding: 12px 25px; border-radius: 50px; display: inline-block; }
-        .result-box { margin-top: 20px; padding: 15px; border: 1px dashed #ccc; border-radius: 10px; background: #fff; display: none; }
+        .result-box { margin-top: 20px; padding: 15px; border: 1px dashed #ccc; border-radius: 10px; background: #fff; display: none; line-height: 1.6; }
     </style>
 </head>
 <body>
@@ -59,7 +59,16 @@
         <div class="form-group"><label>연락처 <span class="required">*</span></label><input type="tel" id="qTel" placeholder="예: 010-0000-0000"></div>
         <div class="form-group"><label>생년월일</label><div class="date-select-group"><select id="qYear"></select><select id="qMonth"></select><select id="qDay"></select></div></div>
         <div class="form-group"><label>지역</label><input type="text" id="qRegion" placeholder="예: 서울시 강남구"></div>
-        <div class="form-group"><label>메일주소 <span class="required">*</span></label><div class="flex-group"><input type="text" id="qEmailId" placeholder="example"> @ <select id="qEmailDomain" onchange="toggleDirectInput('q')"><option value="naver.com">naver.com</option><option value="daum.net">daum.net</option><option value="gmail.com">gmail.com</option><option value="direct">직접입력</option></select><input type="text" id="qEmailDirect" placeholder="도메인 입력" style="display:none; margin-top:5px;"></div></div>
+        <div class="form-group">
+            <label>메일주소 <span class="required">*</span></label>
+            <div class="flex-group">
+                <input type="text" id="qEmailId" placeholder="example"> @ 
+                <select id="qEmailDomain" onchange="toggleDirectInput('q')">
+                    <option value="naver.com">naver.com</option><option value="daum.net">daum.net</option><option value="gmail.com">gmail.com</option><option value="direct">직접입력</option>
+                </select>
+                <input type="text" id="qEmailDirect" placeholder="도메인 입력" style="display:none; margin-top:5px;">
+            </div>
+        </div>
         <div class="form-group"><label>문의내용 <span class="required">*</span></label><textarea id="qMsg" class="large-input" placeholder="문의하실 내용을 상세히 적어주세요."></textarea></div>
         <button class="submit-btn" id="qBtn" onclick="submitData('고객문의')">문의하기</button>
     </div>
@@ -69,14 +78,32 @@
         <h3>불만접수</h3>
         <div class="form-group"><label>성함 <span class="required">*</span></label><input type="text" id="cName" placeholder="예: 홍길동"></div>
         <div class="form-group"><label>연락처 <span class="required">*</span></label><input type="tel" id="cTel" placeholder="예: 010-0000-0000"></div>
-        <div class="form-group"><label>메일주소 <span class="required">*</span></label><div class="flex-group"><input type="text" id="cEmailId" placeholder="example"> @ <select id="cEmailDomain" onchange="toggleDirectInput('c')"><option value="naver.com">naver.com</option><option value="daum.net">daum.net</option><option value="gmail.com">gmail.com</option><option value="direct">직접입력</option></select><input type="text" id="cEmailDirect" placeholder="도메인 입력" style="display:none; margin-top:5px;"></div></div>
-        <div class="form-group"><label>제품명 <span class="required">*</span></label><div class="flex-group"><select id="cProdList"><option>하얀설탕</option><option>갈색설탕</option><option>흑설탕</option><option>분당</option><option>글레이즈</option><option>미립당</option><option>세립당</option><option>쌍백당</option><option>유자당</option><option>미니/미니바</option><option>자일로스설탕</option></select><input type="text" id="cProdWeight" placeholder="단량(예: 1kg)"></div></div>
+        <div class="form-group">
+            <label>메일주소 <span class="required">*</span></label>
+            <div class="flex-group">
+                <input type="text" id="cEmailId" placeholder="example"> @ 
+                <select id="cEmailDomain" onchange="toggleDirectInput('c')">
+                    <option value="naver.com">naver.com</option><option value="daum.net">daum.net</option><option value="gmail.com">gmail.com</option><option value="direct">직접입력</option>
+                </select>
+                <input type="text" id="cEmailDirect" placeholder="도메인 입력" style="display:none; margin-top:5px;">
+            </div>
+        </div>
+        <div class="form-group">
+            <label>제품명 <span class="required">*</span></label>
+            <div class="flex-group">
+                <select id="cProdList">
+                    <option>하얀설탕</option><option>갈색설탕</option><option>흑설탕</option><option>분당</option><option>글레이즈</option><option>미립당</option><option>세립당</option><option>쌍백당</option><option>유자당</option><option>미니/미니바</option><option>자일로스설탕</option>
+                </select>
+                <input type="text" id="cProdWeight" placeholder="단량(예: 1kg)">
+            </div>
+        </div>
         <div class="form-group"><label>제품 LOT(제조일) <span class="required">*</span></label><div class="date-select-group"><select id="cYear"></select><select id="cMonth"></select><select id="cDay"></select></div></div>
         <div class="form-group"><label>이물유형 <span class="required">*</span></label><select id="cType"><option>금속성이물</option><option>비금속성이물</option><option>해충</option><option>기타</option></select></div>
+        <div class="form-group"><label>이물명</label><input type="text" id="cForeign" placeholder="예: 비닐 조각"></div>
         <div class="form-group"><label>사진 첨부</label><input type="file" id="cFile" accept="image/*"></div>
         <div class="form-group"><label>불만내용 <span class="required">*</span></label><textarea id="cMsg" class="large-input"></textarea></div>
         <button class="submit-btn" id="cBtn" onclick="submitData('불만접수')">접수하기</button>
-        <div class="loading-text">※ 사진 첨부 용량에 따라 시간이 소요될 수 있습니다.</div>
+        <div class="loading-text">※ 사진 첨부 용량에 따라 전송 시간이 소요될 수 있습니다.</div>
     </div>
 
     <div id="reportPage" class="page">
@@ -92,18 +119,15 @@
     <div id="docPage" class="page">
         <button class="back-btn" onclick="showPage('mainPage')">❮ 뒤로가기</button>
         <h3>기타서류 요청</h3>
-        <div class="form-group"><label>요청사항 <span class="required">*</span></label><textarea id="dMsg" class="large-input" placeholder="ex) HACCP 인증서 등"></textarea></div>
-        <div class="form-group"><label>받으실 메일 <span class="required">*</span></label><input type="email" id="dEmail"></div>
+        <div class="form-group"><label>요청사항 <span class="required">*</span></label><textarea id="dMsg" class="large-input" placeholder="ex) HACCP 인증서, 원산지 증명서 등"></textarea></div>
+        <div class="form-group"><label>받으실 메일 <span class="required">*</span></label><input type="email" id="dEmail" placeholder="example@naver.com"></div>
         <button class="submit-btn" id="dBtn" onclick="submitData('기타서류요청')">요청하기</button>
     </div>
 
     <div id="searchPage" class="page">
         <button class="back-btn" onclick="showPage('mainPage')">❮ 뒤로가기</button>
         <h3>접수내역 조회</h3>
-        <div class="form-group">
-            <label>접수번호 입력</label>
-            <input type="number" id="searchNo" placeholder="예: 20260306001">
-        </div>
+        <div class="form-group"><label>접수번호 입력</label><input type="number" id="searchNo" placeholder="예: 20260306001"></div>
         <button class="submit-btn" onclick="searchReceipt()">조회하기</button>
         <div id="searchResult" class="result-box"></div>
     </div>
@@ -113,10 +137,7 @@
         <div class="call-icon"><svg viewBox="0 0 24 24"><path d="M6.62,10.79C8.06,13.62 10.38,15.94 13.21,17.38L15.41,15.18C15.69,14.9 16.08,14.82 16.43,14.93C17.55,15.3 18.75,15.5 20,15.5C20.55,15.5 21,15.95 21,16.5V20C21,20.55 20.55,21 20,21C10.61,21 3,13.39 3,4C3,3.45 3.45,3 4,3H7.5C8.05,3 8.5,3.45 8.5,4C8.5,5.25 8.7,6.45 9.07,7.57C9.18,7.92 9.1,8.31 8.82,8.59L6.62,10.79Z"/></svg></div>
         <div style="text-align: center;">
             <a href="tel:0800233399" class="call-number">080-023-3399</a>
-            <p style="margin-top:25px; color: #555; font-size: 14px; line-height: 1.6;">
-                상담사 연결 (09:00~17:30)<br>
-                <b>상담사 연결이 지연될 경우, 잠시 후 다시 연결을 시도해주십시오.</b>
-            </p>
+            <p style="margin-top:25px; color: #555; font-size: 14px; line-height: 1.6;">상담사 연결 (09:00~17:30)<br><b>상담사 연결이 지연될 경우, 잠시 후 다시 연결을 시도해주십시오.</b></p>
         </div>
     </div>
 </div>
@@ -151,17 +172,13 @@
         const no = document.getElementById('searchNo').value;
         const resultBox = document.getElementById('searchResult');
         if(!no) { alert("접수번호를 입력하세요."); return; }
-
         resultBox.style.display = "block"; resultBox.innerHTML = "조회 중...";
-        
         fetch(GAS_URL, { method: 'POST', body: JSON.stringify({action: "search", receiptNo: no}) })
         .then(res => res.json())
         .then(res => {
             if(res.result === "Success") {
                 resultBox.innerHTML = `<strong>[조회 결과]</strong><br>유형: ${res.data.title}<br>일자: ${res.data.date}<br>제품: ${res.data.prod}<br>내용: ${res.data.msg}`;
-            } else {
-                resultBox.innerHTML = "접수 내역을 찾을 수 없습니다.";
-            }
+            } else { resultBox.innerHTML = "내역을 찾을 수 없습니다."; }
         });
     }
 
@@ -177,6 +194,7 @@
             const domain = document.getElementById('qEmailDomain').value === 'direct' ? document.getElementById('qEmailDirect').value : document.getElementById('qEmailDomain').value;
             payload.userEmail = document.getElementById('qEmailId').value + "@" + domain;
             payload.message = document.getElementById('qMsg').value;
+            if(!payload.name || !payload.contact || !document.getElementById('qEmailId').value || !payload.message) { alert("필수 항목(*)을 입력해주세요."); return; }
         } else if(type === '불만접수') {
             btn = document.getElementById('cBtn');
             payload.name = document.getElementById('cName').value;
@@ -185,9 +203,24 @@
             payload.userEmail = document.getElementById('cEmailId').value + "@" + domain;
             payload.prodName = document.getElementById('cProdList').value + " " + document.getElementById('cProdWeight').value;
             payload.lot = `${document.getElementById('cYear').value}-${document.getElementById('cMonth').value}-${document.getElementById('cDay').value}`;
+            payload.foreignType = document.getElementById('cType').value;
+            payload.foreignName = document.getElementById('cForeign').value;
             payload.message = document.getElementById('cMsg').value;
+            if(!payload.name || !payload.contact || !payload.prodName || !payload.message) { alert("필수 항목(*)을 입력해주세요."); return; }
+        } else if(type === '성적서문의') {
+            btn = document.getElementById('rBtn');
+            payload.name = "성적서신청"; payload.productType = document.getElementById('rType').value;
+            payload.prodName = document.getElementById('rProdList').value;
+            payload.lot = `${document.getElementById('rYear').value}-${document.getElementById('rMonth').value}-${document.getElementById('rDay').value}`;
+            payload.userEmail = document.getElementById('rEmail').value;
+            payload.message = "성적서 신청";
+            if(!payload.prodName || !payload.lot || !payload.userEmail) { alert("필수 항목(*)을 입력해주세요."); return; }
+        } else if(type === '기타서류요청') {
+            btn = document.getElementById('dBtn');
+            payload.name = "서류요청"; payload.userEmail = document.getElementById('dEmail').value;
+            payload.message = document.getElementById('dMsg').value;
+            if(!payload.userEmail || !payload.message) { alert("필수 항목(*)을 입력해주세요."); return; }
         }
-        // ... (성적서/기타서류 로직 생략 없이 동일 적용)
 
         const fileInput = document.getElementById('cFile');
         if (type === '불만접수' && fileInput && fileInput.files.length > 0) {
@@ -198,20 +231,23 @@
                 sendToServer(payload, btn);
             };
             reader.readAsDataURL(fileInput.files[0]);
-        } else {
-            sendToServer(payload, btn);
-        }
+        } else { sendToServer(payload, btn); }
     }
 
     function sendToServer(payload, btn) {
-        btn.innerText = "전송 중..."; btn.disabled = true;
-        fetch(GAS_URL, { method: 'POST', body: JSON.stringify(payload) })
-        .then(res => res.json())
-        .then(res => {
-            alert(`접수가 완료되었습니다!\n접수번호: ${res.receiptNo}\n조회 메뉴에서 내역을 확인하실 수 있습니다.`);
-            showPage('mainPage');
-        })
-        .finally(() => { btn.innerText = "전송 완료"; btn.disabled = false; });
+      btn.innerText = "전송 중..."; btn.disabled = true;
+      fetch(GAS_URL, { method: 'POST', body: JSON.stringify(payload) })
+      .then(res => res.json())
+      .then(res => {
+          if(res.result === "Success") {
+              alert(`접수가 완료되었습니다!\n접수번호: ${res.receiptNo}\n조회 메뉴에서 내역을 확인하실 수 있습니다.`);
+              showPage('mainPage');
+          } else {
+              alert(`서버 오류가 발생했습니다: ${res.error}\n구글 시트 ID와 권한을 확인해 주세요.`);
+          }
+      })
+      .catch(err => alert("전송에 실패했습니다. 인터넷 연결을 확인해 주세요."))
+      .finally(() => { btn.innerText = "전송 완료"; btn.disabled = false; });
     }
 </script>
 </body>
