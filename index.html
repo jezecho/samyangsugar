@@ -97,7 +97,6 @@
         </div>
         <div class="form-group"><label>제품 LOT(제조일) <span class="required">*</span></label><div class="date-select-group"><select id="cYear"></select><select id="cMonth"></select><select id="cDay"></select></div></div>
         <div class="form-group"><label>이물유형 <span class="required">*</span></label><select id="cType"><option>금속성이물</option><option>비금속성이물</option><option>해충</option><option>기타</option></select></div>
-        <div class="form-group"><label>이물명</label><input type="text" id="cForeign" placeholder="예: 비닐 조각"></div>
         <div class="form-group"><label>사진 첨부</label><input type="file" id="cFile" accept="image/*"></div>
         <div class="form-group"><label>불만내용 <span class="required">*</span></label><textarea id="cMsg" class="large-input"></textarea></div>
         <button class="submit-btn" id="cBtn" onclick="submitData('불만접수')">접수하기</button>
@@ -108,12 +107,7 @@
         <button class="back-btn" onclick="showPage('mainPage')">❮ 뒤로가기</button>
         <h3>성적서 문의</h3>
         <div class="form-group"><label>제품군 <span class="required">*</span></label><select id="rType"><option>설탕</option><option>전분</option><option>밀가루</option><option>유지</option></select></div>
-        <div class="form-group">
-            <label>제품명 <span class="required">*</span></label>
-            <select id="rProdList">
-                <option>하얀설탕</option><option>갈색설탕</option><option>흑설탕</option><option>분당</option><option>글레이즈</option><option>미립당</option><option>세립당</option><option>쌍백당</option><option>유자당</option><option>미니/미니바</option><option>자일로스설탕</option>
-            </select>
-        </div>
+        <div class="form-group"><label>제품명 <span class="required">*</span></label><select id="rProdList"><option>하얀설탕</option><option>갈색설탕</option><option>흑설탕</option><option>분당</option><option>글레이즈</option><option>미립당</option><option>세립당</option><option>쌍백당</option><option>유자당</option><option>미니/미니바</option><option>자일로스설탕</option></select></div>
         <div class="form-group"><label>LOT번호(제조일) <span class="required">*</span></label><div class="date-select-group"><select id="rYear"></select><select id="rMonth"></select><select id="rDay"></select></div></div>
         <div class="form-group"><label>받으실 메일 <span class="required">*</span></label><input type="email" id="rEmail" placeholder="예: example@naver.com"></div>
         <button class="submit-btn" id="rBtn" onclick="submitData('성적서문의')">신청하기</button>
@@ -224,7 +218,7 @@
         fetch(GAS_URL, { method: 'POST', body: JSON.stringify(payload) })
         .then(res => res.json())
         .then(res => {
-            alert(`접수가 완료되었습니다! 담당자에게 메일이 전송되었습니다.`);
+            alert(`접수가 완료되었습니다! 담당자 메일 발송 및 구글 시트 기록이 완료되었습니다.`);
             showPage('mainPage');
         })
         .catch(err => alert("전송 오류가 발생했습니다."))
