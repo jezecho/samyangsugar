@@ -14,11 +14,8 @@
         .page.active { display: block; }
         .btn { width: 100%; padding: 18px; border: 1px solid #eee; border-radius: 12px; background: white; font-size: 16px; font-weight: 600; text-align: left; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
         .form-group { margin-bottom: 15px; }
-        
-        /* 필수 항목 별표 스타일 */
         label { font-size: 13px; font-weight: bold; color: #555; display: block; margin-bottom: 5px; }
         .required { color: var(--red); margin-left: 3px; }
-        
         input, select, textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 15px; }
         .large-input { min-height: 150px; line-height: 1.5; }
         .submit-btn { width: 100%; padding: 16px; background: var(--main-blue); color: white; border: none; border-radius: 10px; font-size: 16px; font-weight: 700; cursor: pointer; }
@@ -44,7 +41,7 @@
     <div id="qPage" class="page">
         <button class="back-btn" onclick="showPage('mainPage')">❮ 뒤로가기</button>
         <h3>고객문의</h3>
-        <div class="form-group"><label>이름 <span class="required">*</span></label><input type="text" id="qName"></div>
+        <div class="form-group"><label>성함 <span class="required">*</span></label><input type="text" id="qName"></div>
         <div class="form-group"><label>연락처 <span class="required">*</span></label><input type="tel" id="qTel" placeholder="010-0000-0000"></div>
         <div class="form-group"><label>생년월일</label><input type="date" id="qBirth"></div>
         <div class="form-group"><label>지역</label><input type="text" id="qRegion"></div>
@@ -56,7 +53,7 @@
     <div id="cPage" class="page">
         <button class="back-btn" onclick="showPage('mainPage')">❮ 뒤로가기</button>
         <h3>불만접수</h3>
-        <div class="form-group"><label>이름 <span class="required">*</span></label><input type="text" id="cName"></div>
+        <div class="form-group"><label>성함 <span class="required">*</span></label><input type="text" id="cName"></div>
         <div class="form-group"><label>연락처 <span class="required">*</span></label><input type="tel" id="cTel"></div>
         <div class="form-group"><label>메일주소 <span class="required">*</span></label><input type="email" id="cEmail"></div>
         <div class="form-group"><label>제품명 <span class="required">*</span></label><input type="text" id="cProd"></div>
@@ -82,22 +79,20 @@
         <button class="back-btn" onclick="showPage('mainPage')">❮ 뒤로가기</button>
         <h3>기타서류 요청</h3>
         <div class="form-group"><label>제품군 <span class="required">*</span></label><select id="dType"><option>설탕</option><option>전분</option><option>밀가루</option><option>유지</option></select></div>
-        <div class="form-group"><label>요청내용 <span class="required">*</span></label><textarea id="dMsg" class="large-input"></textarea></div>
+        <div class="form-group"><label>요청사항 <span class="required">*</span></label><textarea id="dMsg" class="large-input"></textarea></div>
         <div class="form-group"><label>받으실 메일 <span class="required">*</span></label><input type="email" id="dEmail"></div>
         <button class="submit-btn" id="dBtn" onclick="submitData('기타서류요청')">요청하기</button>
     </div>
 
     <div id="callPage" class="page">
         <button class="back-btn" onclick="showPage('mainPage')">❮ 뒤로가기</button>
-        <div style="text-align: center; padding: 50px 0;">
+        <div style="text-align: center; padding: 60px 0;">
             <a href="tel:0800233399" style="font-size: 28px; font-weight: 800; color: var(--main-blue); text-decoration: none; border: 3px solid var(--main-blue); padding: 15px 30px; border-radius: 50px;">080-023-3399</a>
-            <p style="margin-top:20px">상담사 연결 (09:00~17:30)</p>
         </div>
     </div>
 </div>
 
 <script>
-    // 구글 웹 앱 URL
     const GAS_URL = "https://script.google.com/macros/s/AKfycbylwu6HC9O87N4h3n4eWioVObXaIkxn_eqJ36v-Tlno4JlM0WReLR31uqpAcFFrs1us/exec";
 
     function showPage(id) {
@@ -110,7 +105,6 @@
         let payload = { title: type };
         let btn;
 
-        // 필수 항목 검증
         if(type === '고객문의') {
             btn = document.getElementById('qBtn');
             payload.name = document.getElementById('qName').value;
@@ -119,7 +113,7 @@
             payload.region = document.getElementById('qRegion').value;
             payload.userEmail = document.getElementById('qEmail').value;
             payload.message = document.getElementById('qMsg').value;
-            if(!payload.name || !payload.contact || !payload.userEmail || !payload.message) { alert("필수 항목(*)을 모두 입력해주세요."); return; }
+            if(!payload.name || !payload.contact || !payload.userEmail || !payload.message) { alert("필수 항목(*)을 입력해주세요."); return; }
         } else if(type === '불만접수') {
             btn = document.getElementById('cBtn');
             payload.name = document.getElementById('cName').value;
@@ -130,31 +124,34 @@
             payload.foreignType = document.getElementById('cType').value;
             payload.foreignName = document.getElementById('cForeign').value;
             payload.message = document.getElementById('cMsg').value;
-            if(!payload.name || !payload.contact || !payload.userEmail || !payload.prodName || !payload.message) { alert("필수 항목(*)을 모두 입력해주세요."); return; }
+            if(!payload.name || !payload.contact || !payload.userEmail || !payload.prodName || !payload.message) { alert("필수 항목(*)을 입력해주세요."); return; }
         } else if(type === '성적서문의') {
             btn = document.getElementById('rBtn');
-            payload.name = "성적서신청"; payload.contact = "-";
+            payload.name = "성적서신청";
             payload.productType = document.getElementById('rType').value;
             payload.prodName = document.getElementById('rName').value;
             payload.lot = document.getElementById('rLot').value;
             payload.userEmail = document.getElementById('rEmail').value;
             payload.message = "성적서 발송 요청";
-            if(!payload.prodName || !payload.lot || !payload.userEmail) { alert("필수 항목(*)을 모두 입력해주세요."); return; }
+            payload.contact = "-";
+            if(!payload.prodName || !payload.lot || !payload.userEmail) { alert("필수 항목(*)을 입력해주세요."); return; }
         } else if(type === '기타서류요청') {
             btn = document.getElementById('dBtn');
-            payload.name = "서류요청"; payload.contact = "-";
+            payload.name = "서류요청";
             payload.productType = document.getElementById('dType').value;
+            payload.prodName = "기타서류";
+            payload.lot = "-";
             payload.userEmail = document.getElementById('dEmail').value;
             payload.message = document.getElementById('dMsg').value;
-            payload.prodName = "기타서류"; payload.lot = "-";
-            if(!payload.userEmail || !payload.message) { alert("필수 항목(*)을 모두 입력해주세요."); return; }
+            payload.contact = "-";
+            if(!payload.userEmail || !payload.message) { alert("필수 항목(*)을 입력해주세요."); return; }
         }
 
         const fileInput = document.getElementById('cFile');
         if (type === '불만접수' && fileInput && fileInput.files.length > 0) {
             const file = fileInput.files[0];
             const reader = new FileReader();
-            btn.innerText = "이미지 변환 중..."; btn.disabled = true;
+            btn.innerText = "이미지 처리 중..."; btn.disabled = true;
             reader.onload = function(e) {
                 payload.imageFile = { content: e.target.result.split(',')[1], mimeType: file.type, name: file.name };
                 sendToServer(payload, btn);
@@ -165,29 +162,16 @@
         }
     }
 
-    // GitHub Pages용 fetch 전송 함수
     function sendToServer(payload, btn) {
-        btn.innerText = "전송 중...";
-        btn.disabled = true;
-
-        fetch(GAS_URL, {
-            method: 'POST',
-            body: JSON.stringify(payload)
-        })
+        btn.innerText = "전송 중..."; btn.disabled = true;
+        fetch(GAS_URL, { method: 'POST', body: JSON.stringify(payload) })
         .then(res => res.json())
-        .then(response => {
-            if(response.result === "Success") {
-                alert(payload.title + " 완료! 담당자에게 메일이 전송되었습니다.");
-                showPage('mainPage');
-            } else {
-                alert("오류 발생: " + response.error);
-            }
+        .then(res => {
+            alert(payload.title + " 완료! 메일이 발송되었습니다.");
+            showPage('mainPage');
         })
-        .catch(err => alert("전송 실패: " + err))
-        .finally(() => {
-            btn.innerText = "접수 완료";
-            btn.disabled = false;
-        });
+        .catch(err => alert("전송 오류: " + err))
+        .finally(() => { btn.innerText = "전송 완료"; btn.disabled = false; });
     }
 </script>
 </body>
